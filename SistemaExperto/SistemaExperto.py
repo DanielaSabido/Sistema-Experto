@@ -250,7 +250,7 @@ def agregar_conocimiento(respuestas_usuario):
     entrada_detallada.pack(pady=5)
 
     # Botón para ingresar el conocimiento (incluye la selección de imagen)
-    tk.Button(ventana_agregar, text="Seleccionar Imagen e Guardar Conocimiento", command=ingresar_conocimiento).pack(pady=10)
+    tk.Button(ventana_agregar, text="Seleccionar Imagen y Guardar Conocimiento", command=ingresar_conocimiento).pack(pady=10)
 
 # Configuración de la ventana principal de la aplicación
 root = tk.Tk()
