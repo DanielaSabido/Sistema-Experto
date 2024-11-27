@@ -1,4 +1,4 @@
-00000000: 
+00000000: Mejora tu rutina de sueño || Una mejor rutina de sueño puede ayudar a mejorar tu estado anímico
 00000001: Prueba técnicas de relajación, como escuchar sonidos de la naturaleza. || Esto te puede ayudar a aliviar la tristeza y a encontrar apoyo emocional. Esto puede motivarte a buscar apoyo si sientes que lo necesitas.
 00000010: Intenta una meditación guiada en línea. || Esto te puede ayudar a aliviar la tristeza y a encontrar apoyo emocional. Además, recibir ayuda profesional o buscar orientación puede ser un buen inicio.
 00000011: Escribe en un diario sobre cómo te sientes. || Esto te puede ayudar a aliviar la tristeza y a encontrar apoyo emocional.

@@ -1,13 +1,13 @@
 # Importación de módulos necesarios
+import tkinter as tk  # Para crear interfaces gráficas
+from tkinter import messagebox  # Para mostrar mensajes emergentes
+from PIL import Image, ImageTk  # Para manejar imágenes
+import threading  # Para ejecutar tareas en hilos separados
+import pyttsx3  # Para la síntesis de voz
 import os  # Para manejar rutas y archivos
 import shutil  # Para copiar y mover archivos
-import threading  # Para ejecutar tareas en hilos separados
-import tkinter as tk  # Para crear interfaces gráficas
 from tkinter import filedialog  # Para abrir un explorador de archivos
-from tkinter import messagebox  # Para mostrar mensajes emergentes
 
-import pyttsx3  # Para la síntesis de voz
-from PIL import Image, ImageTk  # Para manejar imágenes
 
 # Inicialización del narrador de texto
 narrador = pyttsx3.init()
@@ -148,28 +148,30 @@ def mostrar_respuesta(respuestas_usuario):
             También narra la respuesta detallada.
             """
             narrar_texto(respuesta_detallada)
-            ventana_detalle = tk.Toplevel(root)
-            ventana_detalle.title("Respuesta detallada")
-            tk.Label(ventana_detalle, text=respuesta_detallada, wraplength=400).pack(pady=10)
+            ventana_respuesta_detallada = tk.Toplevel(root)
+            ventana_respuesta_detallada.title("Respuesta detallada")
+            ventana_respuesta_detallada.configure(bg="#add8e6")
+            tk.Label(ventana_respuesta_detallada, text=respuesta_detallada, wraplength=400, bg="#add8e6").pack(pady=10)
             if imagen:
-                etiqueta_imagen = tk.Label(ventana_detalle, image=imagen)
+                etiqueta_imagen = tk.Label(ventana_respuesta_detallada, image=imagen)
                 etiqueta_imagen.pack(pady=10)
-                ventana_detalle.image = imagen  # Prevenir que la imagen sea recolectada por el recolector de basura
-            tk.Button(ventana_detalle, text="Aceptar", command=ventana_detalle.destroy).pack(pady=10)
+                ventana_respuesta_detallada.image = imagen  # Prevenir que la imagen sea recolectada por el recolector de basura
+            tk.Button(ventana_respuesta_detallada, text="Aceptar", command=ventana_respuesta_detallada.destroy).pack(pady=10)
 
         if respuesta_breve:
             # Mostrar la respuesta breve en una ventana emergente
-            ventana = tk.Toplevel(root)
-            ventana.title("Respuesta breve")
-            tk.Label(ventana, text=respuesta_breve, wraplength=400).pack(pady=10)
+            ventana_respuesta_breve = tk.Toplevel(root)
+            ventana_respuesta_breve.configure(bg="#add8e6")
+            ventana_respuesta_breve.title("Respuesta breve")
+            tk.Label(ventana_respuesta_breve, text=respuesta_breve, wraplength=400, bg="#add8e6").pack(pady=10)
             if imagen:
-                etiqueta_imagen = tk.Label(ventana, image=imagen)
+                etiqueta_imagen = tk.Label(ventana_respuesta_breve, image=imagen)
                 etiqueta_imagen.pack(pady=10)
-                ventana.image = imagen  # Prevenir que la imagen sea recolectada por el recolector de basura
+                ventana_respuesta_breve.image = imagen  # Prevenir que la imagen sea recolectada por el recolector de basura
             if respuesta_detallada:
                 # Botón para mostrar la respuesta detallada si está disponible
-                tk.Button(ventana, text="Detalles", command=mostrar_detalles).pack(pady=5)
-            tk.Button(ventana, text="Aceptar", command=ventana.destroy).pack(pady=10)
+                tk.Button(ventana_respuesta_breve, text="Detalles", command=mostrar_detalles).pack(pady=5)
+            tk.Button(ventana_respuesta_breve, text="Aceptar", command=ventana_respuesta_breve.destroy).pack(pady=10)
             narrar_texto(respuesta_breve)  # Narrar la respuesta breve
         else:
             # Mensaje en caso de no tener respuesta breve para la clave generada
@@ -178,8 +180,9 @@ def mostrar_respuesta(respuestas_usuario):
 
             # Crear una ventana emergente para mostrar el mensaje
             ventana_sin_respuesta = tk.Toplevel(root)
+            ventana_sin_respuesta.configure(bg="#add8e6")
             ventana_sin_respuesta.title("Sin conocimiento")
-            tk.Label(ventana_sin_respuesta, text=mensaje, wraplength=400).pack(pady=10)
+            tk.Label(ventana_sin_respuesta, text=mensaje, wraplength=400, bg="#add8e6").pack(pady=10)
 
             # Botón para agregar conocimiento
             tk.Button(
@@ -242,19 +245,21 @@ def agregar_conocimiento(respuestas_usuario):
     # Crear una ventana emergente para agregar conocimiento
     ventana_agregar = tk.Toplevel(root)
     ventana_agregar.title("Agregar conocimiento")
-    tk.Label(ventana_agregar, text="Respuesta breve:").pack(pady=5)
+    ventana_agregar.configure(bg="#add8e6")
+    tk.Label(ventana_agregar, text="Respuesta breve:", bg="#add8e6").pack(pady=5)
     entrada_breve = tk.Entry(ventana_agregar, width=50)
     entrada_breve.pack(pady=5)
-    tk.Label(ventana_agregar, text="Respuesta detallada:").pack(pady=5)
+    tk.Label(ventana_agregar, text="Respuesta detallada:", bg="#add8e6").pack(pady=5)
     entrada_detallada = tk.Entry(ventana_agregar, width=50)
     entrada_detallada.pack(pady=5)
 
     # Botón para ingresar el conocimiento (incluye la selección de imagen)
-    tk.Button(ventana_agregar, text="Seleccionar Imagen y Guardar Conocimiento", command=ingresar_conocimiento).pack(pady=10)
+    tk.Button(ventana_agregar, text="Seleccionar Imagen e Guardar Conocimiento", command=ingresar_conocimiento).pack(pady=10)
 
 # Configuración de la ventana principal de la aplicación
 root = tk.Tk()
-root.title("Chatbot de Apoyo Emocional")
+root.title("PlatiCuate")
+root.configure(bg="#add8e6")
 
 # Variables que almacenan las respuestas seleccionadas por el usuario
 estado_var = tk.StringVar(value="triste")
@@ -262,17 +267,20 @@ amigos_var = tk.StringVar(value="muy bien")
 familia_var = tk.StringVar(value="estable y de apoyo")
 apoyo_externo_var = tk.StringVar(value="sí, recibo ayuda profesional")
 
+#Etiqueta de la bienvenida
+etiqueta_bienvenida = tk.Label(root, text="¡Bienvenido a PlatiCuate!", font=("Georgia", 24, "italic"), bg="#000000", fg="#ffffff")
+etiqueta_bienvenida.pack(pady=20)
 # Crear los menús desplegables para capturar las respuestas del usuario
-tk.Label(root, text="¿Cómo te sientes la mayor parte del tiempo?").pack()
+tk.Label(root, text="¿Cómo te sientes la mayor parte del tiempo?",bg="#add8e6", font=("Arial", 10, "bold")).pack()
 tk.OptionMenu(root, estado_var, *preguntas["estado"].keys()).pack()
 
-tk.Label(root, text="¿Cómo te llevas con tus amigos?").pack()
+tk.Label(root, text="¿Cómo te llevas con tus amigos?",bg="#add8e6", font=("Arial", 10, "bold")).pack()
 tk.OptionMenu(root, amigos_var, *preguntas["amigos"].keys()).pack()
 
-tk.Label(root, text="¿Cómo es tu relación con tu familia?").pack()
+tk.Label(root, text="¿Cómo es tu relación con tu familia?",bg="#add8e6", font=("Arial", 10, "bold")).pack()
 tk.OptionMenu(root, familia_var, *preguntas["familia"].keys()).pack()
 
-tk.Label(root, text="¿Has buscado apoyo externo?").pack()
+tk.Label(root, text="¿Has buscado apoyo externo?",bg="#add8e6", font=("Arial", 10, "bold")).pack()
 tk.OptionMenu(root, apoyo_externo_var, *preguntas["apoyo_externo"].keys()).pack()
 
 # Botón para procesar las respuestas y mostrar la respuesta correspondiente
